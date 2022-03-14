@@ -1,12 +1,12 @@
 NAME = so_long
 NAME_BONUS = so_long_bonus
 
-CFLAGS = -Wall -Werror -Wextra
-
 LIBFT = ./Libft/libft.a
 
 GNL = get_next_line.c \
 	  get_next_line_utils.c
+
+MINILIB = ./minilibx/libmlx.a
 
 SRCS = 	$(GNL) \
 		so_long.c \
@@ -33,7 +33,7 @@ SRCS_BONUS = $(GNL) \
 		move_enemy.c \
 		switch_pics_enemy.c
 
-LINKS = -l mlx -framework OpenGL -framework Appkit
+LINKS = -L ./minilibx -I ./includes -lmlx -framework OpenGL -framework Appkit
 
 OBJ = $(SRCS:%.c=bin/%.o)
 
@@ -41,22 +41,22 @@ OBJ_BONUS = $(SRCS_BONUS:%.c=bin/%.o)
 
 all: $(NAME)
 
-$(NAME): bin $(OBJ) $(LIBFT)
-	$(CC) $(OBJ) -o $(NAME) $(CFLAGS) $(LINKS) $(LIBFT)
+$(NAME): bin $(OBJ) $(LIBFT) $(MINILIB)
+	$(CC) $(MINILIB) $(OBJ) -o $(NAME) $(LINKS) $(LIBFT)
 
 $(LIBFT):
 	make -C libft
 
 bin/%.o : %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@ -I ./includes
 
 bin :
 	@mkdir bin
 
 bonus : $(NAME_BONUS)
 
-$(NAME_BONUS): bin $(OBJ_BONUS) $(LIBFT)
-	$(CC) $(OBJ_BONUS) -o $(NAME_BONUS) $(CFLAGS) $(LINKS) $(LIBFT)
+$(NAME_BONUS): bin $(OBJ_BONUS) $(LIBFT) $(MINILIB)
+	$(CC) $(MINILIB) $(OBJ_BONUS) -o $(NAME_BONUS) $(CFLAGS) $(LINKS) $(LIBFT)
 
 clean:
 	rm -rf bin

@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long_bonus.h                                    :+:      :+:    :+:   */
+/*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ynuiga <ynuiga@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 17:11:57 by ynuiga            #+#    #+#             */
-/*   Updated: 2022/03/13 16:05:17 by ynuiga           ###   ########.fr       */
+/*   Updated: 2022/03/14 13:46:28 by ynuiga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_BONUS_H
-# define SO_LONG_BONUS_H
+#ifndef SO_LONG_H
+# define SO_LONG_H
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdio.h>
@@ -19,7 +19,7 @@
 # include <string.h>
 # include <errno.h>
 # include "mlx.h"
-# include "./Libft/libft.h"
+# include "../Libft/libft.h"
 # define BUFFER_SIZE 100
 # define E_IMS -1
 # define E_MAC -2
@@ -44,7 +44,6 @@ typedef struct s_images
 	t_image	hero;
 	t_image	collect;
 	t_image	obstacles;
-	t_image	enemy;
 }			t_images;
 
 typedef struct s_map
@@ -62,7 +61,7 @@ typedef struct s_so_long
 	size_t		width;
 	t_map		map;
 	t_images	images;
-	int			count_bonus;
+	int			count;
 }				t_so_long;
 
 char		*get_next_line(int fd);
@@ -78,22 +77,15 @@ void		move_player(int key, t_so_long	*so_long);
 void		run_so_long(t_so_long *so_long);
 void		check_win(t_so_long *so_long, int i, int j);
 void		move_player2(int key, t_so_long	*so_long);
-void		turn_left_bonus(t_so_long	*so_long, size_t	i, size_t	j);
-void		turn_right_bonus(t_so_long	*so_long, size_t	i, size_t	j);
-void		go_up_bonus(t_so_long	*so_long, size_t	i, size_t	j);
-void		go_down_bonus(t_so_long	*so_long, size_t	i, size_t	j);
+void		turn_left(t_so_long	*so_long, size_t	i, size_t	j);
+void		turn_right(t_so_long	*so_long, size_t	i, size_t	j);
+void		go_up(t_so_long	*so_long, size_t	i, size_t	j);
+void		go_down(t_so_long	*so_long, size_t	i, size_t	j);
 void		can_exit(t_so_long *so_long, int key);
 void		move_player3(int key, t_so_long	*so_long);
 void		move_player4(int key, t_so_long	*so_long);
 void		open_door(t_so_long	*so_long);
 void		fill_open_exit(t_so_long *so_long);
-void		lost(t_so_long *so_long, int key);
-void		count_bonus(t_so_long *so_long);
-void		fill_enemy(t_so_long *so_long);
-int			move_enemy_bonus(t_so_long	*so_long);
-void		turn_enemy_left(t_so_long	*so_long, size_t	i, size_t	j);
-void		turn_enemy_right(t_so_long	*so_long, size_t	i, size_t	j);
-void		turn_enemy_up(t_so_long	*so_long, size_t	i, size_t	j);
-void		turn_enemy_down(t_so_long	*so_long, size_t	i, size_t	j);
+void		count(t_so_long *so_long);
 
 #endif
